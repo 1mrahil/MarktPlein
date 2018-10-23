@@ -1,0 +1,71 @@
+* {
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+h1, h3, h4 {
+    font-weight: bold;
+}
+
+body {
+    background-color: beige;
+    margin: 0 auto;
+    font-family: 'PT Serif', serif;
+}
+
+.navbar {
+    font-size: 1.5em;
+    background-color: white;
+    top: 0;
+    overflow: hidden;
+    height: 1.5em;
+    width: 100%;
+    position: fixed;
+}   
+
+.navbar a {
+    padding: 5px;
+    text-align: center;
+    text-decoration: none;
+}
+
+.navbar a:hover {
+    background-color: beige;
+    transition: color 0.5s ease-in-out;
+}
+
+.icons {
+    float: right;
+}
+main {
+    margin: 2em  2em 2em;
+    text-align: left;
+}
+
+.box {
+    border-radius: 5px;
+    margin: 10% 12%;
+    padding: 2em 2em;
+    background: white;
+    height: 50%;
+    width: 75%;
+    display: block;
+    grid-area: auto;
+}
+
+.flex-container {
+    display: flex;
+}
+
+form {
+    font-family: 'PT Serif', serif;
+}
+
+input {
+    font-size: 1em;
+    margin-bottom: 1em;
+}
+
+#button { 
+    font-size: 1em;
+}
