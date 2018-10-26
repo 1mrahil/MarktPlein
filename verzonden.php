@@ -11,14 +11,13 @@
 
         $query = "INSERT INTO advertentie (rubriek, naam, omschrijving) VALUES ('$rubriek', '$naam', '$omschrijving')";
         if (mysqli_query($conn, $query)) {
-            header('Location:' . ROOT_URL . '');
+            header('Location:' . ROOT_URL . 'verzonden.php');
             
         } else {
             echo 'ERROR: ' . mysqli_error($conn);
     }
     
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -47,11 +46,12 @@
     </div>
     <div style="margin-top: 7%;" class="flex-container">
         <main class="box">
+        <h3 style="color:green;">Je advertentie is geplaatst!</h3>
             <h1>Advertentie plaatsen</h1>
             <h3>Wat wil je verkopen?</h3>
             <h4>Vul rubriek in</h4>
             <p><span class="error">* verplicht</span></p>
-            <form method="POST" onsubmit="window.alert('Je advertentie is geplaatst!', true)" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" >
+            <form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
                 <input type="text" name="rubriek" placeholder="Rubriek">
                 <input id="button" type="submit" value="Vind rubriek"><br>
                 <select name="rubriek" required>
@@ -76,7 +76,7 @@
                 <h4>Omschrijving</h4>
                 <textarea name="omschrijving" type="text" placeholder="Omschrijving" rows="5" cols="25" required value="<?php echo $omschrijving; ?>"></textarea><br>
                 <!--<input id="button" type="submit" value="Upload foto's">--><br>
-                <input name="submit" id="button" type="submit" value="Verzenden" >
+                <input name="submit" id="button" type="submit" value="Verzenden">
 
 
             </form>

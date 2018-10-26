@@ -58,7 +58,7 @@ main {
 
 .box {
   border-radius: 5px;
-  margin: 10% 12%;
+  margin: 5% 12%;
   padding: 2em 2em;
   background: white;
   height: 50%;
@@ -88,11 +88,5 @@ textarea {
   font-size: 1em;
 }
 
-#verzonden {
-  align-content: center;
-  background-color: white;
-  height: 25%;
-  width: 100%;
-  margin: 2em 0;
-}
+
 

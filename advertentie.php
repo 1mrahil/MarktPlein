@@ -1,63 +1,80 @@
-
 <?php
+require('config/config.php');
+require('config/db.php');
 
-echo "rubriek " .$_POST ["rubriek"]. " "."naam " .$_POST["naam"]." "."omschrijving ".$_POST["omschrijving"]
-/*
-if(isset($_POST['verzenden'])){
+$query = 'SELECT * FROM advertentie';
 
-    if($_POST['rubriek'] == ""){
-        $error="Rubriek verplicht!<br>"; 
-    }
+$result = mysqli_query($conn, $query);
 
-    if($_POST['naam'] == ""){
-        $error="Naam verplicht!<br>"; 
-    }
+$advertenties = mysqli_fetch_all($result, MYSQLI_ASSOC);
+//var_dump($posts);
+mysqli_free_result($result);
 
-    if($_POST['omschrijving'] == ""){
-        $error="Omschrijving verplicht!<br>"; 
-    }
+mysqli_close($conn);
 
-    if(isset($error)){
-        echo $error;
-    }else{
-        // Both fields have content in
+/* debuggen!
+if (isset($_POST['delete'])) {
 
-    }
+  $delete_id = mysqli_real_escape_string($conn, $POST['delete_id']);
 
-}
+  $query = "DELETE FROM advertenties WHERE id = {'delete_id'}";
 
-?>
-
-  $naamErr = $rubriekErr = $omschrijvingErr="";
-$naam = $rubriek = $omschrijving= ""; 
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (empty($_POST["naam"])) {
-      $nameErr = "Naam verplicht!";
-    } else {
-      $name = test_input($_POST["naam"]);
-    
-    }
-    
-    if (empty($_POST["rubriek"])) {
-      $emailErr = "Rubriek verplicht!";
-    } else {
-      $email = test_input($_POST["rubriek"]);
-    }
-  
-    if (empty($_POST["omschrijving"])) {
-      $omschrijvingErr = "Omschrijving verplicht!";
-    } else {
-      $omschrijving = test_input($_POST["omschrijving"]);
-    }
-  
+  if (msqli_query($conn, $query)) {
+    header('Location:' . ROOT_URL . '');
+  } else {
+    echo 'ERROR: ' . mysqli_error($conn);
   }
 
-function test_input($data) {
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
-    return $data;
 }
 */
 ?>
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="style.css" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=PT+Serif:400,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
+        crossorigin="anonymous">
+    <title>Plaats je advertentie</title>
+</head>
+  <body>
+  <div>
+        <nav class="navbar">
+            <a href="#">MarktPlein</a>
+            <a href="#">Help</a>
+            <a class="icons" href="#"><i class="fas fa-comments"></i></a>
+            <a class="icons" href="#"><i class="far fa-bell"></i></a>
+            <a class="icons" href="#"><i class="far fa-user"></i></a>
+        </nav>
+    </div>
+    <h1 style="text-align: center; margin-top: 5%;">Jouw advertenties</h1>
+    <?php foreach ($advertenties as $advertentie) : ?>
+    <div class="flex-container">
+      <div class="box">
+        <h4><?php echo $advertentie['Rubriek']; ?></h4>
+        <h5><?php echo $advertentie['Naam']; ?></h5>
+        <p><?php echo $advertentie['Omschrijving']; ?></p>
+        <form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" name>
+          <input type="hidden" name="delete-id" value="<?php echo $post['id'] ?>">
+          <input type="submit" name="delete" value="Verwijderen">
+      </form>
+      </div>
+    </div>
+    <?php endforeach; ?>
+    
+      
+    
+   
+
+    
+  
+  </body>
+</html>
+
+
