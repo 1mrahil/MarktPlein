@@ -8,14 +8,14 @@ if(isset($_POST['delete'])) {
   $query = "DELETE FROM Advertentie WHERE id = {$delete_id}";
 
   if (mysqli_query($conn, $query)) {
-    header('Location:' . ROOT_URL . '');
+    header('Location:' . ROOT_URL .'advertentie.php');
     
   } else {
     echo 'ERROR: ' . mysqli_error($conn);
   }
 }
 
-$id = mysqli_real_escape_string($conn, $_GET['ID']);
+$ID = mysqli_real_escape_string($conn, $_GET['ID']);
 
 
 
