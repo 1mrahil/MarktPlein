@@ -2,31 +2,34 @@
 require('config/config.php');
 require('config/db.php');
 
+if(isset($_POST['delete'])) {
+  $delete_id = mysqli_real_escape_string($conn, $_POST['delete_id']);
+
+  $query = "DELETE FROM Advertentie WHERE id = {$delete_id}";
+
+  if (mysqli_query($conn, $query)) {
+    header('Location:' . ROOT_URL . '');
+    
+  } else {
+    echo 'ERROR: ' . mysqli_error($conn);
+  }
+}
+
+$id = mysqli_real_escape_string($conn, $_GET['ID']);
+
+
+
 $query = 'SELECT * FROM advertentie';
 
 $result = mysqli_query($conn, $query);
 
 $advertenties = mysqli_fetch_all($result, MYSQLI_ASSOC);
-//var_dump($posts);
+
 mysqli_free_result($result);
 
 mysqli_close($conn);
 
-/* debuggen!
-if (isset($_POST['delete'])) {
 
-  $delete_id = mysqli_real_escape_string($conn, $POST['delete_id']);
-
-  $query = "DELETE FROM advertenties WHERE id = {'delete_id'}";
-
-  if (msqli_query($conn, $query)) {
-    header('Location:' . ROOT_URL . '');
-  } else {
-    echo 'ERROR: ' . mysqli_error($conn);
-  }
-
-}
-*/
 ?>
 
 
@@ -60,8 +63,8 @@ if (isset($_POST['delete'])) {
         <h4><?php echo $advertentie['Rubriek']; ?></h4>
         <h5><?php echo $advertentie['Naam']; ?></h5>
         <p><?php echo $advertentie['Omschrijving']; ?></p>
-        <form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" name>
-          <input type="hidden" name="delete-id" value="<?php echo $post['id'] ?>">
+        <form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" name="delete">
+          <input type="hidden" name="delete_id" value="<?php echo $advertentie['ID'] ?>">
           <input type="submit" name="delete" value="Verwijderen">
       </form>
       </div>

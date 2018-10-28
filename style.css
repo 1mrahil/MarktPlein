@@ -83,6 +83,7 @@ textarea {
 }
 
 #button {
+  background-color: beige;
   border-radius: 5px;
   padding: 2px;
   font-size: 1em;
