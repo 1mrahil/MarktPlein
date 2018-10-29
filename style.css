@@ -89,5 +89,24 @@ textarea {
   font-size: 1em;
 }
 
+.login {
+  text-align:center;
+  border-radius: 5px;
+  margin: 10% 25%;
+  padding: 2em 2em;
+  background: white;
+  height: 50%;
+  width: 50%;
+  display: block;
+  grid-area: auto;
+}
 
+.login-box {
+  margin: 10% 25%;
+  height: 50%;
+  width: 50%;
+}
 
+#fields{
+  width: 100%;
+}

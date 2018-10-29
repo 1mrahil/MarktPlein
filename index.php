@@ -9,7 +9,7 @@
         $naam = mysqli_real_escape_string($conn, $_POST['naam']);
         $omschrijving = mysqli_real_escape_string($conn, $_POST['omschrijving']);
 
-        $query = "INSERT INTO advertentie (rubriek, naam, omschrijving) VALUES ('$rubriek', '$naam', '$omschrijving')";
+        $query = "INSERT INTO advertenties (rubriek, naam, omschrijving) VALUES ('$rubriek', '$naam', '$omschrijving')";
         if (mysqli_query($conn, $query)) {
             header('Location:' . ROOT_URL . '');
             
@@ -18,6 +18,7 @@
     }
     
 }
+mysqli_close($conn);
 
 ?>
 
@@ -42,7 +43,7 @@
             <a href="#">Help</a>
             <a class="icons" href="#"><i class="fas fa-comments"></i></a>
             <a class="icons" href="#"><i class="far fa-bell"></i></a>
-            <a class="icons" href="#"><i class="far fa-user"></i></a>
+            <a class="icons" href="registratie.php"><i class="far fa-user"></i></a>
         </nav>
     </div>
     <div style="margin-top: 7%;" class="flex-container">
@@ -76,7 +77,7 @@
                 <h4>Omschrijving</h4>
                 <textarea name="omschrijving" type="text" placeholder="Omschrijving" rows="5" cols="25" required value="<?php echo $omschrijving; ?>"></textarea><br>
                 <!--<input id="button" type="submit" value="Upload foto's">--><br>
-                <input name="submit" id="button" type="submit" value="Verzenden" >
+                <input name="submit" id="button" type="submit" value="Verzenden">
 
 
             </form>

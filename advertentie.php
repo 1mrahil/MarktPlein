@@ -2,28 +2,28 @@
 require('config/config.php');
 require('config/db.php');
 
-if(isset($_POST['delete'])) {
+if (isset($_POST['delete'])) {
   $delete_id = mysqli_real_escape_string($conn, $_POST['delete_id']);
 
-  $query = "DELETE FROM Advertentie WHERE id = {$delete_id}";
+  $query = "DELETE FROM Advertenties WHERE id = {$delete_id}";
 
   if (mysqli_query($conn, $query)) {
-    header('Location:' . ROOT_URL .'advertentie.php');
-    
+    header('Location:' . ROOT_URL . 'advertentie.php');
+
   } else {
     echo 'ERROR: ' . mysqli_error($conn);
   }
 }
 
-$ID = mysqli_real_escape_string($conn, $_GET['ID']);
+
+$id = mysqli_real_escape_string($conn, $_GET['id']);
 
 
-
-$query = 'SELECT * FROM advertentie';
+$query = 'SELECT * FROM advertenties';
 
 $result = mysqli_query($conn, $query);
 
-$advertenties = mysqli_fetch_all($result, MYSQLI_ASSOC);
+$posts = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
 mysqli_free_result($result);
 
@@ -44,7 +44,7 @@ mysqli_close($conn);
     <link href="https://fonts.googleapis.com/css?family=PT+Serif:400,700" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
         crossorigin="anonymous">
-    <title>Plaats je advertentie</title>
+    <title>Mijn advertenties</title>
 </head>
   <body>
   <div>
@@ -53,18 +53,18 @@ mysqli_close($conn);
             <a href="#">Help</a>
             <a class="icons" href="#"><i class="fas fa-comments"></i></a>
             <a class="icons" href="#"><i class="far fa-bell"></i></a>
-            <a class="icons" href="#"><i class="far fa-user"></i></a>
+            <a class="icons" href="registratie.php"><i class="far fa-user"></i></a>
         </nav>
     </div>
-    <h1 style="text-align: center; margin-top: 5%;">Jouw advertenties</h1>
-    <?php foreach ($advertenties as $advertentie) : ?>
+    <h1 style="text-align: center; margin-top: 5%;">Mijn advertenties</h1>
+    <?php foreach ($posts as $advertenties) : ?>
     <div class="flex-container">
       <div class="box">
-        <h4><?php echo $advertentie['Rubriek']; ?></h4>
-        <h5><?php echo $advertentie['Naam']; ?></h5>
-        <p><?php echo $advertentie['Omschrijving']; ?></p>
+        <h4><?php echo $advertenties['Rubriek']; ?></h4>
+        <h5><?php echo $advertenties['Naam']; ?></h5>
+        <p><?php echo $advertenties['Omschrijving']; ?></p>
         <form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" name="delete">
-          <input type="hidden" name="delete_id" value="<?php echo $advertentie['ID'] ?>">
+          <input type="hidden" name="delete_id" value="<?php echo $advertenties['id'] ?>">
           <input type="submit" name="delete" value="Verwijderen">
       </form>
       </div>
