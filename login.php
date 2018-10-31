@@ -1,6 +1,35 @@
 <?php
 
+//maak verbinding met db
+require('config/config.php');
+require('config/db.php');
+session_start();
+
+$data = new databases;
+$message = '';
+if(isset($_POST["login"])){
+    $field = array(
+        'email' => $_POST["email"],
+        'wachtwoord' => $_POST["wachtwoord"] 
+    );
+    if($data->required_validation($field)){
+        if($data->can_login("gebruikers", $field)){
+            $_SESSION["email"] = $_POST["email"];
+            header("location:login_succes.php");
+        }
+    }
+} 
+else {
+    $message = $data->error;
+}
+    
+
+mysqli_close($conn);
 ?>
+
+    
+   
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -24,10 +53,24 @@
         <a class="icons" href="#"><i class="far fa-user"></i></a>
     </nav>
 </div>
+<div class="login">
+    <?php 
+    if(isset($message)){
+        echo '<label>'.$message.'</label>';
+    }
+    
+    ?>
+    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
     <label>E-mailadres</label><br>
-    <input type="email" name="" id="" required><br>
+    <input type="email" name="email" id="" required><br>
     <label>Wachtwoord</label><br>
-    <input type="password" name="" id="" required><br>
+    <input type="password" name="wachtwoord" id="" autocomplete="off" required><br>
+    <input name="login" type="submit" value="Inloggen">
+    <input name="annuleren" type="submit" value="Annuleren">
+    </div>
+
+</form>
+    
 <div>
     
 </div>

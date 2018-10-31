@@ -83,10 +83,15 @@ textarea {
 }
 
 #button {
-  background-color: beige;
+  background-color: white;
   border-radius: 5px;
   padding: 2px;
   font-size: 1em;
+}
+
+#button:hover{
+  background-color: beige;
+  opacity: .9;
 }
 
 .login {

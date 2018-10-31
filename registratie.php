@@ -3,11 +3,15 @@
 require('config/config.php');
 require('config/db.php');
 //gegevens invoeren
+
+$email = $wachtwoord = $bevestig_wachtwoord = "";
+$email_err = $wachtwoord_err = $bevestig_wachtwoord_err = "";
+
 if (isset($_POST['submit'])) {
     $email = mysqli_real_escape_string($conn, $_POST['e-mail']);
     $wachtwoord = mysqli_real_escape_string($conn, $_POST['wachtwoord']);
     
-    $query = "INSERT INTO gebruikers (e_mail, wachtwoord) VALUES ('$email', '$wachtwoord')";
+    $query = "INSERT INTO gebruikers (email, wachtwoord) VALUES ('$email', '$wachtwoord')";
     if (mysqli_query($conn, $query)) {
         header('Location:' . ROOT_URL . 'registratie.php');
         
