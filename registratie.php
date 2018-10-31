@@ -21,7 +21,7 @@ if (isset($_POST['submit'])) {
             echo 'ERROR: ' . mysqli_error($conn);
         }
     } else {
-        echo "Wachtwoord komt niet overeen!";
+        echo "<br><h3>Wachtwoord komt niet overeen!</h3>";
 
     }
 }
@@ -57,8 +57,8 @@ mysqli_close($conn);
         <a class="icons" href="registratie.php"><i class="far fa-user"></i></a>
     </nav>
 </div>
-<div class="login">
-<form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
+<div class="flex-container">
+<form  class="login" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
     <h3>Registreren</h3>
     <p><a href="registratie.php">Registreren</a> <a href="login.php">Inloggen</a></p>
     <label>E-mailadres</label><br>
