@@ -58,9 +58,10 @@ mysqli_close($conn);
     if(isset($message)){
         echo '<label>'.$message.'</label>';
     }
-    
     ?>
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
+    <h3>Inloggen</h3>
+    <p><a href="registratie.php">Registreren</a> <a href="login.php">Inloggen</a></p>
     <label>E-mailadres</label><br>
     <input type="email" name="email" id="" required><br>
     <label>Wachtwoord</label><br>

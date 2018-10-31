@@ -8,18 +8,30 @@ $email = $wachtwoord = $bevestig_wachtwoord = "";
 $email_err = $wachtwoord_err = $bevestig_wachtwoord_err = "";
 
 if (isset($_POST['submit'])) {
-    $email = mysqli_real_escape_string($conn, $_POST['e-mail']);
-    $wachtwoord = mysqli_real_escape_string($conn, $_POST['wachtwoord']);
-    
-    $query = "INSERT INTO gebruikers (email, wachtwoord) VALUES ('$email', '$wachtwoord')";
-    if (mysqli_query($conn, $query)) {
-        header('Location:' . ROOT_URL . 'registratie.php');
-        
+    if (isset($_POST["wachtwoord"]) != isset($_POST["herhaal_wachtwoord"])) {
+
+        $email = mysqli_real_escape_string($conn, $_POST['e-mail']);
+        $wachtwoord = mysqli_real_escape_string($conn, $_POST['wachtwoord']);
+
+        $query = "INSERT INTO gebruikers (email, wachtwoord) VALUES ('$email', '$wachtwoord')";
+        if (mysqli_query($conn, $query)) {
+            header('Location:' . ROOT_URL . 'registratie.php');
+
+        } else {
+            echo 'ERROR: ' . mysqli_error($conn);
+        }
     } else {
-        echo 'ERROR: ' . mysqli_error($conn);
+        echo "Wachtwoord komt niet overeen!";
+
+    }
 }
 
-}
+     
+    
+
+
+
+
 mysqli_close($conn);
 ?>
 
@@ -46,18 +58,19 @@ mysqli_close($conn);
     </nav>
 </div>
 <div class="login">
-    <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
+<form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
+    <h3>Registreren</h3>
+    <p><a href="registratie.php">Registreren</a> <a href="login.php">Inloggen</a></p>
     <label>E-mailadres</label><br>
     <input type="email" name="e-mail" id="fields" required><br>
     <label>Wachtwoord</label><br>
     <input type="password" name="wachtwoord" id="fields" required><br>
     <label>Herhaal wachtwoord</label><br>
-    <input type="password" name="" id="fields" required><br>
+    <input type="password" name="herhaal_wachtwoord" id="fields" required><br>
     <input name="submit" type="submit" value="Maak account aan">
     <input type="submit" value="Annuleren">
-</div>
-
 </form>
+</div>  
     
 </body>
 </html>

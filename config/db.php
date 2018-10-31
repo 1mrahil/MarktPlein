@@ -12,6 +12,10 @@ public $error;
 
 public function __construct(){
     $this->conn = mysqli_connect("localhost", "root", "", "MarktPlein");
+    if(!$this->conn){
+        echo 'Database Connection Error' .mysqli_connect_error($this->conn);
+        
+    }
 }
     public function required_validation($field)
     {
