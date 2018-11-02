@@ -1,15 +1,21 @@
 <?php 
     require('config/config.php');
     require('config/db.php');
-    $naamErr = $omschrijvingErr = "";
-    $naam = $omschrijving = "";
+    $naamErr = $rubriekErr= $omschrijvingErr = '';
+    $naam = $rubriek= $omschrijving = '';
     
     if (isset($_POST['submit'])) {
+        $update_id = mysqli_real_escape_string($conn, $_POST['update_id']);
         $rubriek = mysqli_real_escape_string($conn, $_POST['rubriek']);
         $naam = mysqli_real_escape_string($conn, $_POST['naam']);
         $omschrijving = mysqli_real_escape_string($conn, $_POST['omschrijving']);
 
-        $query = "INSERT INTO advertenties (rubriek, naam, omschrijving) VALUES ('$rubriek', '$naam', '$omschrijving')";
+        $query = "UPDATE Advertenties SET
+                    rubriek = '$rubriek',
+                    naam = '$naam',
+                    omschrijving = '$omschrijving'
+                        WHERE id = {$update_id}";
+
         if (mysqli_query($conn, $query)) {
             header('Location:' . ROOT_URL . '');
             
@@ -18,7 +24,18 @@
     }
     
 }
+$id = mysqli_real_escape_string($conn, isset($_GET['id']));
+
+$query = 'SELECT * FROM Advertenties WHERE id= '.$id;
+
+$result = mysqli_query($conn, $query);
+
+$post = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+mysqli_free_result($result);
+
 mysqli_close($conn);
+
 
 ?>
 
@@ -33,7 +50,7 @@ mysqli_close($conn);
     <link href="https://fonts.googleapis.com/css?family=PT+Serif:400,700" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
         crossorigin="anonymous">
-    <title>Plaats je advertentie</title>
+    <title>Wijzig je advertentie</title>
 </head>
 
 <body>
@@ -48,13 +65,10 @@ mysqli_close($conn);
     </div>
     <div style="margin-top: 7%;" class="flex-container">
         <main class="box">
-            <h1>Advertentie plaatsen</h1>
-            <h2>Wat wil je verkopen?</h3>
-            <h4>Vul rubriek in</h4>
+            <h2>Advertentie wijzigen</h2>
             <p><span class="error">* verplicht</span></p>
-            <form method="POST" onsubmit="window.alert('Je advertentie is geplaatst!', true)" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" >
-                <input type="text" name="rubriek" placeholder="Rubriek">
-                <input id="button" type="submit" value="Vind rubriek"><br>
+            <form method="POST" onsubmit="window.alert('Je advertentie is gewijzigd!', true)" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" >
+                <input type="text" name="rubriek" value="<?php echo $post['rubriek']; ?>"><br>
                 <select name="rubriek" required>
                     <option value="auto's">Auto's</option>
                     <option value="boeken">Boeken</option>
@@ -72,11 +86,12 @@ mysqli_close($conn);
                     <option value="zakelijke goederen">Zakelijke goederen</option>
                     <!--<input style="margin-left: 5px;" id="button" type="submit" value="Verder"> -->
                 </select><br>
-                <h4>Naam product</h4>
-                <input type="text" name="naam" placeholder="Naam product" value="" required><br>
-                <h4>Omschrijving</h4>
-                <textarea name="omschrijving" type="text" placeholder="Omschrijving" rows="5" cols="25" value="<?php echo $omschrijving; ?>" required></textarea><br>
+                <label>Naam product</label><br>
+                <input type="text" name="naam" value="<?php echo $post['naam'];?>" required><br>
+                <label>Omschrijving</label><br>
+                <textarea name="omschrijving" type="text" rows="5" cols="25" value="<?php echo $post['omschrijving']; ?>" required></textarea><br>
                 <!--<input id="button" type="submit" value="Upload foto's">-->
+                <input type="hidden" value="<?php echo $post['id']; ?>" name="update_id" > 
                 <input name="submit" id="button" type="submit" value="Verzenden">
 
 

@@ -61,7 +61,7 @@ main {
   margin: 5% 12%;
   padding: 2em 2em;
   background: white;
-  height: 50%;
+  height: 100%;
   width: 75%;
   display: block;
   grid-area: auto;
@@ -114,4 +114,9 @@ textarea {
 
 #fields{
   width: 100%;
+}
+
+.box label{
+  margin-bottom: 5%;
+  font-weight: 700;
 }

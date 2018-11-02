@@ -16,14 +16,14 @@ if (isset($_POST['delete'])) {
 }
 
 
-$id = mysqli_real_escape_string($conn, $_GET['id']);
+$id = mysqli_real_escape_string($conn, isset($_GET['id']));
 
 
 $query = 'SELECT * FROM advertenties';
 
 $result = mysqli_query($conn, $query);
 
-$posts = mysqli_fetch_all($result, MYSQLI_ASSOC);
+$post = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
 mysqli_free_result($result);
 
@@ -57,15 +57,16 @@ mysqli_close($conn);
         </nav>
     </div>
     <h1 style="text-align: center; margin-top: 5%;">Mijn advertenties</h1>
-    <?php foreach ($posts as $advertenties) : ?>
+    <?php foreach ($post as $advertenties) : ?>
     <div class="flex-container">
       <div class="box">
-        <h4><?php echo $advertenties['Rubriek']; ?></h4>
-        <h5><?php echo $advertenties['Naam']; ?></h5>
-        <p><?php echo $advertenties['Omschrijving']; ?></p>
+        <h4><?php echo $advertenties['rubriek']; ?></h4>
+        <h5><?php echo $advertenties['naam']; ?></h5>
+        <p><?php echo $advertenties['omschrijving']; ?></p>
         <form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" name="delete">
+          <a id="button" href="<?php echo ROOT_URL; ?>editad.php?id=<?php echo $post['id']; ?>">Wijzigen</a>
           <input type="hidden" name="delete_id" value="<?php echo $advertenties['id'] ?>">
-          <input type="submit" name="delete" value="Verwijderen">
+          <input id="button" type="submit" name="delete" value="Verwijderen">
       </form>
       </div>
     </div>

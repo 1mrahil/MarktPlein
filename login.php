@@ -8,17 +8,27 @@ session_start();
 $data = new databases;
 $message = '';
 if(isset($_POST["login"])){
+    
     $field = array(
         'email' => $_POST["email"],
         'wachtwoord' => $_POST["wachtwoord"] 
     );
+    
+    
+    
     if($data->required_validation($field)){
-        if($data->can_login("gebruikers", $field)){
+        
+        if(password_verify($_POST["wachtwoord"] , $field["wachtwoord"])&&($data->can_login("gebruikers", $field))){
+        //if
             $_SESSION["email"] = $_POST["email"];
             header("location:login_succes.php");
         }
+    } else{
+        return false;
     }
-} 
+        
+    }    
+ 
 else {
     $message = $data->error;
 }

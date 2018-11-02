@@ -8,10 +8,11 @@ $email = $wachtwoord = $bevestig_wachtwoord = "";
 $email_err = $wachtwoord_err = $bevestig_wachtwoord_err = "";
 
 if (isset($_POST['submit'])) {
-    if (isset($_POST["wachtwoord"]) != isset($_POST["herhaal_wachtwoord"])) {
+    if (isset($_POST["wachtwoord"]) === isset($_POST["herhaal_wachtwoord"])) {
 
         $email = mysqli_real_escape_string($conn, $_POST['e-mail']);
         $wachtwoord = mysqli_real_escape_string($conn, $_POST['wachtwoord']);
+        //$wachtwoord = password_hash($wachtwoord, PASSWORD_DEFAULT);
 
         $query = "INSERT INTO gebruikers (email, wachtwoord) VALUES ('$email', '$wachtwoord')";
         if (mysqli_query($conn, $query)) {

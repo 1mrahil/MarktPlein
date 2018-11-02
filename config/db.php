@@ -11,7 +11,7 @@ public $conn;
 public $error;
 
 public function __construct(){
-    $this->conn = mysqli_connect("localhost", "root", "", "MarktPlein");
+    $this->conn = mysqli_connect("localhost", "root", "", "MarktPlein") or die("Not connected.") ;
     if(!$this->conn){
         echo 'Database Connection Error' .mysqli_connect_error($this->conn);
         
