@@ -8,9 +8,11 @@ $email = $wachtwoord = $bevestig_wachtwoord = "";
 $email_err = $wachtwoord_err = $bevestig_wachtwoord_err = "";
 
 if (isset($_POST['submit'])) {
-    if (isset($_POST["wachtwoord"]) === isset($_POST["herhaal_wachtwoord"])) {
-
-        $email = mysqli_real_escape_string($conn, $_POST['e-mail']);
+    if (isset($_POST["wachtwoord"]) != isset($_POST["herhaal_wachtwoord"])) {
+        echo "<br><h3>Wachtwoord komt niet overeen!</h3>";
+        
+    } else {
+       $email = mysqli_real_escape_string($conn, $_POST['e-mail']);
         $wachtwoord = mysqli_real_escape_string($conn, $_POST['wachtwoord']);
         //$wachtwoord = password_hash($wachtwoord, PASSWORD_DEFAULT);
 
@@ -21,8 +23,6 @@ if (isset($_POST['submit'])) {
         } else {
             echo 'ERROR: ' . mysqli_error($conn);
         }
-    } else {
-        echo "<br><h3>Wachtwoord komt niet overeen!</h3>";
 
     }
 }

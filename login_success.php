@@ -1,5 +1,12 @@
 <?php 
 session_start();
+require('config/config.php');
+require('config/db.php');
+$sql_topjoin = "SELECT advertenties.id, advertenties.rubriek, advertenties.naam, advertenties.omschrijving, gebruikers.account_id, gebruikers.email
+FROM advertenties
+INNER JOIN gebruikers ON advertenties.id = gebruikers.account_id WHERE email = '" . $_SESSION['email'] . "'";
+$sql_topjoin_result = $conn->query($sql_topjoin);
+mysqli_close($conn);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,8 +30,11 @@ session_start();
         <a class="icons" href="registratie.php"><i class="far fa-user"></i></a>
     </nav>
 </div>
+
 <?php 
-echo '<br><h3>Inloggen succesvol, welkom '.$_SESSION["email"].'</h3>';
+echo '<br><h3>Inloggen succesvol, welkom '.$_SESSION['email'].'</h3>';
+
+
 ?>
     
 </body>

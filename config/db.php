@@ -48,5 +48,8 @@ public function __construct(){
         $this->error = "Wrong Data";
     }
     }
+    public function logout(){
+        session_destroy();
+    }
 }
 ?>

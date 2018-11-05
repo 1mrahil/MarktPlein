@@ -1,5 +1,14 @@
-$rubriek = mysqli_real_escape_string($conn, $_POST['rubriek']);
-    $naam = mysqli_real_escape_string($conn, $_POST['naam']);
-    $omschrijving = mysqli_real_escape_string($conn, $_POST['omschrijving']);
+<?php 
+$id = mysqli_real_escape_string($conn, isset($_GET['id']));
+$query_string= "SELECT * FROM advertenties WHERE id=" .$id;
 
-    $query = "INSERT INTO advertentie (rubriek, naam, omschrijving) VALUES ('$rubriek', '$naam', '$omschrijving')";
+$query = mysqli_query($conn, "SELECT * FROM advertenties WHERE id=" .$id) or die(mysqli_error());
+
+$result = mysqli_query($conn, $query);
+
+$post = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+mysqli_free_result($result);
+
+mysqli_close($conn);
+?>

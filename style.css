@@ -83,10 +83,30 @@ textarea {
 }
 
 #button {
+  text-decoration: none;
+  font-family: "PT Serif", serif;
+  color: black;
   background-color: white;
   border-radius: 5px;
   padding: 2px;
   font-size: 1em;
+}
+
+#edit-button{
+  box-shadow: 2px 1.5px grey;
+  border: none;
+  text-decoration: none;
+  font-family: "PT Serif", serif;
+  color: black;
+  background-color: white;
+  border-radius: 5px;
+  padding: 2px;
+  font-size: 1em;
+}
+
+#edit-button:hover{
+  background-color: beige;
+  opacity: .9;
 }
 
 #button:hover{

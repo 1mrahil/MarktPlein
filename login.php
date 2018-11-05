@@ -13,28 +13,25 @@ if(isset($_POST["login"])){
         'email' => $_POST["email"],
         'wachtwoord' => $_POST["wachtwoord"] 
     );
-    
-    
-    
-    if($data->required_validation($field)){
-        
-        if(password_verify($_POST["wachtwoord"] , $field["wachtwoord"])&&($data->can_login("gebruikers", $field))){
-        //if
-            $_SESSION["email"] = $_POST["email"];
-            header("location:login_succes.php");
-        }
-    } else{
-        return false;
-    }
-        
-    }    
- 
-else {
-    $message = $data->error;
-}
-    
 
-mysqli_close($conn);
+
+
+    if ($data->required_validation($field)) {
+
+        if ($data->can_login("gebruikers", $field)) {
+            $_SESSION["email"] = $_POST["email"];
+            header("location: login_success.php");
+        } else {
+            $message = $data->error;
+        }
+
+    }
+
+}    
+ 
+
+
+
 ?>
 
     

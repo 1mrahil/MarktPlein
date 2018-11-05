@@ -19,7 +19,7 @@ if (isset($_POST['delete'])) {
 $id = mysqli_real_escape_string($conn, isset($_GET['id']));
 
 
-$query = 'SELECT * FROM advertenties';
+$query = "SELECT * FROM advertenties";
 
 $result = mysqli_query($conn, $query);
 
@@ -64,7 +64,7 @@ mysqli_close($conn);
         <h5><?php echo $advertenties['naam']; ?></h5>
         <p><?php echo $advertenties['omschrijving']; ?></p>
         <form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" name="delete">
-          <a id="button" href="<?php echo ROOT_URL; ?>editad.php?id=<?php echo $post['id']; ?>">Wijzigen</a>
+          <a id="edit-button" href="<?php echo ROOT_URL; ?>editad.php?id=<?php echo $post['id']; ?>">Wijzigen</a>
           <input type="hidden" name="delete_id" value="<?php echo $advertenties['id'] ?>">
           <input id="button" type="submit" name="delete" value="Verwijderen">
       </form>

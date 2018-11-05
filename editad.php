@@ -1,21 +1,22 @@
 <?php 
     require('config/config.php');
     require('config/db.php');
-    $naamErr = $rubriekErr= $omschrijvingErr = '';
-    $naam = $rubriek= $omschrijving = '';
     
     if (isset($_POST['submit'])) {
-        $update_id = mysqli_real_escape_string($conn, $_POST['update_id']);
+        /*$update_id = mysqli_real_escape_string($conn, $_POST['update_id']);
         $rubriek = mysqli_real_escape_string($conn, $_POST['rubriek']);
         $naam = mysqli_real_escape_string($conn, $_POST['naam']);
-        $omschrijving = mysqli_real_escape_string($conn, $_POST['omschrijving']);
-
-        $query = "UPDATE Advertenties SET
-                    rubriek = '$rubriek',
-                    naam = '$naam',
-                    omschrijving = '$omschrijving'
+        $omschrijving = mysqli_real_escape_string($conn, $_POST['omschrijving']);*/
+        $update_id = mysqli_real_escape_string($conn, isset($_POST['update_id']) ? $_POST['update_id'] : 0);
+        $id = mysqli_real_escape_string($conn, isset($_POST['id']) ? $_POST['id'] : 0);
+        $rubriek = mysqli_real_escape_string($conn, isset($_POST['rubriek']) ? $_POST['rubriek'] : '');
+        $naam = mysqli_real_escape_string($conn, isset($_POST['naam']) ? $_POST['naam'] : '');
+        $omschrijving = mysqli_real_escape_string($conn, isset($_POST['omschrijving']) ? $_POST['omschrijving'] : '');
+        
+        $query = "UPDATE advertenties SET
+                    rubriek = '$rubriek', naam = '$naam', omschrijving = '$omschrijving'
                         WHERE id = {$update_id}";
-
+                        die($query);
         if (mysqli_query($conn, $query)) {
             header('Location:' . ROOT_URL . '');
             
@@ -26,7 +27,7 @@
 }
 $id = mysqli_real_escape_string($conn, isset($_GET['id']));
 
-$query = 'SELECT * FROM Advertenties WHERE id= '.$id;
+$query = "SELECT * FROM `advertenties` WHERE `id`='.$id'" ;
 
 $result = mysqli_query($conn, $query);
 
@@ -35,7 +36,6 @@ $post = mysqli_fetch_all($result, MYSQLI_ASSOC);
 mysqli_free_result($result);
 
 mysqli_close($conn);
-
 
 ?>
 
@@ -68,36 +68,20 @@ mysqli_close($conn);
             <h2>Advertentie wijzigen</h2>
             <p><span class="error">* verplicht</span></p>
             <form method="POST" onsubmit="window.alert('Je advertentie is gewijzigd!', true)" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" >
-                <input type="text" name="rubriek" value="<?php echo $post['rubriek']; ?>"><br>
-                <select name="rubriek" required>
-                    <option value="auto's">Auto's</option>
-                    <option value="boeken">Boeken</option>
-                    <option value="computers & software">Computers & software</option>
-                    <option value="diversen">Diversen</option>
-                    <option value="dieren & toebehoren">Dieren & toebehoren</option>
-                    <option value="fietsen & brommers">Fietsen & brommers</option>
-                    <option value="hobby & vrije tijd">Hobby & vrije tijd</option>
-                    <option value="kleding">Kleding</option>
-                    <option value="muziek & instrumenten">Muziek & instrumenten</option>
-                    <option value="sport & fitness">Sport & fitness</option>
-                    <option value="sport & fitness">Tuin & terras</option>
-                    <option value="vakantie">Vakantie</option>
-                    <option value="witgoed & apparatuur">Witgoed & apparatuur</option>
-                    <option value="zakelijke goederen">Zakelijke goederen</option>
-                    <!--<input style="margin-left: 5px;" id="button" type="submit" value="Verder"> -->
-                </select><br>
-                <label>Naam product</label><br>
-                <input type="text" name="naam" value="<?php echo $post['naam'];?>" required><br>
-                <label>Omschrijving</label><br>
+                <h4>Rubriek</h4>
+                <input type="text" name="rubriek" value="<?php echo $post['rubriek'] ;?>"><br>
+                <h4>Naam product</h4>
+                <input type="text" value="<?php echo $post['naam']; ?>" name="naam" required><br>
+                <h4>Omschrijving</h4>
                 <textarea name="omschrijving" type="text" rows="5" cols="25" value="<?php echo $post['omschrijving']; ?>" required></textarea><br>
                 <!--<input id="button" type="submit" value="Upload foto's">-->
-                <input type="hidden" value="<?php echo $post['id']; ?>" name="update_id" > 
+                <input type="hidden" name="update_id" value="<?php echo $post['id']; ?>"> 
                 <input name="submit" id="button" type="submit" value="Verzenden">
-
 
             </form>
         </main>
     </div>
+    
     <script></script>
 </body>
 
